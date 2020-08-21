@@ -118,4 +118,6 @@ if __name__ == '__main__':
     conn.execute(cursor)
     print(conn.fetchall())
     print(conn.description())
+    print(conn.description_data_name)
+    print(conn.description_data_type)
     conn.close()
