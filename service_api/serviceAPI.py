@@ -111,9 +111,9 @@ class DiscoveryService:
 
 if __name__ == '__main__':
     conn = DiscoveryService()
-    conn.connect_data("192.168.100.180", 6036)
-    conn.parameter("model name = 'syslog' model_owner = eva start_date = 20200820153500 end_date = 20200820153611", 10, True)
-    conn.user_info("root", "biris.manse")
+    conn.connect_data()
+    conn.parameter()
+    conn.user_info()
     cursor = conn.cursor()
     conn.execute(cursor)
     print(conn.fetchall())
