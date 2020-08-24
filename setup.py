@@ -3,9 +3,9 @@
 from setuptools import setup
 
 setup(
-    name='service_api',
+    name='serviceAPI',
     version="1.0",
-    description="service_api",
+    description="serviceAPI",
     long_description="""
         IRISDiscoveryService-PY-API
     """,
