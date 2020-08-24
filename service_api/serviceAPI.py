@@ -20,7 +20,7 @@ class DiscoveryService(Cursor, Connection):
 if __name__ == '__main__':
 
     sql_api = DiscoveryService()
-    conn = sql_api.connect(host="", port=0, user_id=0, user_passwd="")
+    conn = sql_api.connect(host="", port=0, user_id="", user_passwd="")
 
     cursor = conn.cursor()
 
