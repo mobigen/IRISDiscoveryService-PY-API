@@ -12,6 +12,7 @@ class Connection(object):
         self.port = port
         self.user_id = user_id
         self.user_passwd = user_passwd
+        self.token = None
 
     def cursor(self):
         if self.token is not None:
