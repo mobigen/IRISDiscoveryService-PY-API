@@ -14,7 +14,7 @@ class DiscoveryService(Cursor, Connection):
         self.description_data_type = []
         self.description_data_name = []
         super(Connection, self).__init__()
-        super(Cursor, self).__init__(self.token)
+        super(Cursor, self).__init__()
 
 
 if __name__ == '__main__':
