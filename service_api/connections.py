@@ -14,14 +14,6 @@ class Connection(object):
         self.user_passwd = user_passwd
         self.token = None
 
-        self.http_conn = HTTPConnection(self.host, self.port)
-
-        self.http_conn.request(
-            "POST",
-            "/angora/auth",
-            json.dumps({"id": self.user_id, "password": self.user_passwd}))
-
-        self.token = json.load(self.http_conn.getresponse())["token"]
 
     def cursor(self):
         if self.token is not None:
