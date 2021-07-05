@@ -11,10 +11,10 @@ class ApiError(Exception):
 
 class Cursor(object):
 
-    def __init__(self, token):
+    def __init__(self):
 
         self.http_conn = None
-        self.token = token
+        self.token = None
         self.sid = None
         self.response = None
         self.fetchall_data = []
