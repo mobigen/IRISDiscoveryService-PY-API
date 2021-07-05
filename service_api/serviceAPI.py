@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding=UTF-8
 
-from cursors import *
-from connections import *
+from .cursors import *
+from .connections import *
 
 
 class DiscoveryService(Cursor, Connection):
