@@ -9,5 +9,6 @@ setup(
     long_description="""
         IRISDiscoveryService-PY-API
     """,
+    packages=['service_api'],
     url="https://github.com/mobigen/IRISDiscoveryService-PY-API",
 )
