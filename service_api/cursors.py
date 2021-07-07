@@ -22,7 +22,7 @@ class Cursor(object):
     def __enter__(self):
         return self
 
-    def __exit__(self):
+    def __exit__(self, type, value, traceback):
         self.close()
 
     def execute(self, q=None, size=None, save=None):
