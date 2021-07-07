@@ -106,4 +106,3 @@ class Cursor(object):
             pass
         else:
             self.http_conn = None
-            print('cursor close')
