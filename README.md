@@ -16,16 +16,16 @@ import service_api
 sql_api = service_api.DiscoveryService()
 conn = sql_api.connect(host="", port=0, user_id="", user_passwd="")
 
-cursor = conn.cursor()
+with conn.cursor() as cursor:
 
-cursor.execute(
-    q="",
-    size=0, save=True)
+    cursor.execute(
+        q="",
+        size=0, save=True)
 
 
-cursor.response_data()
-cursor.fetchall()
-cursor.description()
+    cursor.response_data()
+    cursor.fetchall()
+    cursor.description()
 
-cursor.close()
+#cursor.close()
 ```
