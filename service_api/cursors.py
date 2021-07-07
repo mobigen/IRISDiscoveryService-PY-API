@@ -19,6 +19,12 @@ class Cursor(object):
         self.response = None
         self.fetchall_data = []
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        self.close()
+
     def execute(self, q=None, size=None, save=None):
         """
         파라미터
