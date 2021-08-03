@@ -23,6 +23,12 @@ class Cursor(object):
         self.description_data_name = []
         self.description_data_type = []
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.close()
+
     def execute(self, q=None, size=None):
         """
         파라미터
