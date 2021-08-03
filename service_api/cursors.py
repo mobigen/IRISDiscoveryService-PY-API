@@ -66,13 +66,13 @@ class Cursor(object):
             "GET",
             "/angora/query/jobs/%s" % self.sid,
             headers=self.headers)
-        self.response = json.loads(self.http_conn.getresponse().read())
+        self.response = self.http_conn.getresponse()
 
         return self.response
 
     def fetchall(self):
 
-        response = self.response_data()
+        response = json.loads(self.response_data())
         try:
             self.fetchall_data = response['results']
 
