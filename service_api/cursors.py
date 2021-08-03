@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding=UTF-8
 
-from http.client import HTTPConnection
 import json
 
 
@@ -18,29 +17,25 @@ class Cursor(object):
         self.sid = None
         self.response = None
         self.fetchall_data = []
+        self.headers = {}
+        self.parameters = {}
+        self.description_data = []
+        self.description_data_name = []
+        self.description_data_type = []
 
-    def __enter__(self):
-        return self
-
-    def __exit__(self, type, value, traceback):
-        self.close()
-
-    def execute(self, q=None, size=None, save=None):
+    def execute(self, q=None, size=None):
         """
         파라미터
         -------------
         :param q: 모델의 정보
         :param size: 해당 모델의 한번에 보여줄 행의 사이즈
-        :param save: 저장 유무
         :return: 모델의 정보를 이용하여 가공한 데이터
         """
 
         if q is None:
             q = " "
         if size is None:
-            size = 10
-        if save is None:
-            save = True
+            size = 50
 
         self.headers["Accept"] = "application/json"
         self.headers["Content-Type"] = "application/json"
@@ -48,7 +43,6 @@ class Cursor(object):
 
         self.parameters['q'] = q
         self.parameters['size'] = size
-        self.parameters['save'] = save
 
         body = json.dumps(self.parameters)
 
@@ -57,8 +51,8 @@ class Cursor(object):
 
         try:
             self.sid = r["sid"]
-        except KeyError as err:
-            raise ApiError("no search sid")
+        except Exception as e:
+            raise e
 
     def response_data(self):
 
@@ -66,18 +60,18 @@ class Cursor(object):
             "GET",
             "/angora/query/jobs/%s" % self.sid,
             headers=self.headers)
-        self.response = self.http_conn.getresponse()
+        self.response = json.loads(self.http_conn.getresponse().read())
 
         return self.response
 
     def fetchall(self):
 
-        response = json.loads(self.response_data())
+        response = self.response_data()
         try:
             self.fetchall_data = response['results']
 
-        except KeyError:
-            return
+        except Exception as e:
+            raise e
 
         return self.fetchall_data
 
@@ -94,8 +88,8 @@ class Cursor(object):
                 self.description_data_name.append([fields_data['name'], None, None, None, None, None, None])
                 self.description_data_type.append([None, fields_data['type'], None, None, None, None, None])
 
-        except KeyError:
-            return ""
+        except Exception as e:
+            raise e
 
         return self.description_data_name
 
