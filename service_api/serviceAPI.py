@@ -25,8 +25,7 @@ if __name__ == '__main__':
     cursor = conn.cursor()
 
     cursor.execute(
-        q="",
-        size=0, save=True)
+        q="", size=0)
 
     # print(cursor.fetchall())
     # cursor.close()
