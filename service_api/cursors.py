@@ -53,12 +53,13 @@ class Cursor(object):
         body = json.dumps(self.parameters)
 
         self.http_conn.request("POST", "/angora/query/jobs", body=body, headers=self.headers)
-        r = json.load(self.http_conn.getresponse())
 
         try:
-            self.sid = r["sid"]
+            r = json.load(self.http_conn.getresponse())
         except Exception as e:
             raise e
+
+        self.sid = r["sid"]
 
     def response_data(self):
 
@@ -72,12 +73,12 @@ class Cursor(object):
 
     def fetchall(self):
 
-        response = json.loads(self.response_data())
         try:
-            self.fetchall_data = response['results']
-
+            response = json.loads(self.response_data())
         except Exception as e:
             raise e
+
+        self.fetchall_data = response['results']
 
         return self.fetchall_data
 
@@ -87,15 +88,15 @@ class Cursor(object):
         [ name, type, display_size, internal_size, precision, scale, null_ok ]
         """
 
-        response = self.response_data()
         try:
-            for fields_data in response['fields']:
-                self.description_data.append([fields_data['name'], fields_data['type'], None, None, None, None, None])
-                self.description_data_name.append([fields_data['name'], None, None, None, None, None, None])
-                self.description_data_type.append([None, fields_data['type'], None, None, None, None, None])
-
+            response = self.response_data()
         except Exception as e:
             raise e
+
+        for fields_data in response['fields']:
+            self.description_data.append([fields_data['name'], fields_data['type'], None, None, None, None, None])
+            self.description_data_name.append([fields_data['name'], None, None, None, None, None, None])
+            self.description_data_type.append([None, fields_data['type'], None, None, None, None, None])
 
         return self.description_data_name
 
