@@ -74,7 +74,7 @@ class Cursor(object):
     def fetchall(self):
 
         try:
-            response = json.loads(self.response_data())
+            response = json.load(self.response_data())
         except Exception as e:
             raise e
 
