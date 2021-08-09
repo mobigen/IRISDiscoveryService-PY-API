@@ -61,6 +61,8 @@ class Cursor(object):
         else:
             raise ApiError(response)
 
+        self.sid = r["sid"]
+
     def response_data(self):
 
         self.http_conn.request(
@@ -79,6 +81,8 @@ class Cursor(object):
             self.fetchall_data = response['results']
         else:
             raise ApiError(response)
+
+        self.fetchall_data = response['results']
 
         return self.fetchall_data
 
