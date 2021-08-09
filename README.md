@@ -2,12 +2,18 @@
 angora에 job request를 보내고 response를 받을수 있게 해주는 python package
 
 ## 설치법
+- 기본적인 설치법
 ```
 pip install git+https://github.com/mobigen/IRISDiscoveryService-PY-API.git
 
 or
 
 pip3 install git+https://github.com/mobigen/IRISDiscoveryService-PY-API.git
+```
+
+- requirements.txt 작성법
+```
+service-api @ git+https://github.com/mobigen/IRISDiscoveryService-PY-API.git@master
 ```
 
 ## 사용법
