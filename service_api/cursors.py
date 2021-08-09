@@ -54,12 +54,12 @@ class Cursor(object):
 
         self.http_conn.request("POST", "/angora/query/jobs", body=body, headers=self.headers)
 
-        try:
-            r = json.load(self.http_conn.getresponse())
-        except Exception as e:
-            raise e
+        response = json.load(self.http_conn.getresponse())
 
-        self.sid = r["sid"]
+        if response.get("sid"):
+            self.sid = response["sid"]
+        else:
+            raise ApiError(response)
 
     def response_data(self):
 
@@ -73,12 +73,12 @@ class Cursor(object):
 
     def fetchall(self):
 
-        try:
-            response = json.load(self.response_data())
-        except Exception as e:
-            raise e
+        response = json.load(self.response_data())
 
-        self.fetchall_data = response['results']
+        if response.get("results"):
+            self.fetchall_data = response['results']
+        else:
+            raise ApiError(response)
 
         return self.fetchall_data
 
@@ -89,7 +89,7 @@ class Cursor(object):
         """
 
         try:
-            response = self.response_data()
+            response = json.load(self.response_data())
         except Exception as e:
             raise e
 
