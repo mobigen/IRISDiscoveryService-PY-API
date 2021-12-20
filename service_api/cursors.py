@@ -5,7 +5,28 @@ import json
 
 
 class ApiError(Exception):
-    pass
+    code = "1000"
+    message = "Please check your service"
+
+    def __init__(self, *args, target_code=None, target_message=None):
+
+        if 'code' not in self.__class__.__dict__ or 'message' not in self.__class__.__dict__:
+            raise Exception("""Missing 'code' and/or 'message' class attributes.
+            Example:
+                MyAngoraCoreError(AngoraCoreError):
+                    code = 1000
+                    message = "My exception message"
+            """)
+
+        if target_code is None:
+            self.code = self.__class__.__dict__['code']
+        else:
+            self.code = target_code
+
+        if target_message is None:
+            self.message = self.__class__.__dict__['message'] if len(args) == 0 else '; '.join([str(arg) for arg in args])
+        else:
+            self.message = target_message
 
 
 class Cursor(object):
@@ -59,7 +80,10 @@ class Cursor(object):
         if response.get("sid"):
             self.sid = response["sid"]
         else:
-            raise ApiError(response)
+            raise ApiError(
+                target_code=response["code"],
+                target_message=response["message"]
+            )
 
     def response_data(self):
 
